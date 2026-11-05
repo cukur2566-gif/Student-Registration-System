@@ -1,0 +1,26 @@
+pycache__/
+*.py[cod]
+*.log
+
+# Virtual Environment
+venv/
+.venv/
+env/
+
+# Django
+staticfiles/
+*.sqlite3-journal
+
+# IDE
+.vscode/
+.idea/
+
+# Operating System
+.DS_Store
+Thumbs.db
+
+# Database
+db.sqlite3
+
+# Student uploaded images
+media/

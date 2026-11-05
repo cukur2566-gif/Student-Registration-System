@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Students List</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f7fb;
+            margin: 0;
+            padding: 30px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: auto;
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+
+        h1 {
+            color: #243b53;
+            text-align: center;
+        }
+
+        .add-button {
+            display: inline-block;
+            background: #176b55;
+            color: white;
+            padding: 11px 18px;
+            text-decoration: none;
+            border-radius: 6px;
+            margin-bottom: 20px;
+        }
+
+        .add-button:hover {
+            background: #105440;
+        }
+
+        .table-wrapper {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 900px;
+        }
+
+        th, td {
+            padding: 12px;
+            border: 1px solid #e0e5eb;
+            text-align: left;
+        }
+
+        th {
+            background: #176b55;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background: #f7f9fb;
+        }
+
+        .student-image {
+            width: 65px;
+            height: 65px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .empty-message {
+            text-align: center;
+            padding: 25px;
+            color: #68778a;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>Registered Students</h1>
+
+    <a href="{% url 'student_create' %}" class="add-button">
+        + Add New Student
+    </a>
+
+    <div class="table-wrapper">
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>University ID</th>
+                    <th>ID Number</th>
+                    <th>Mobile Number</th>
+                    <th>Address</th>
+                    <th>Date of Birth</th>
+                    <th>Image</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for student in students %}
+                    <tr>
+                        <td>{{ student.name }}</td>
+                        <td>{{ student.university_id }}</td>
+                        <td>{{ student.id_number }}</td>
+                        <td>{{ student.mobile_number }}</td>
+                        <td>{{ student.address }}</td>
+                        <td>{{ student.date_of_birth|date:"Y-m-d" }}</td>
+                        <td>
+                            {% if student.image %}
+                                <img
+                                    src="{{ student.image.url }}"
+                                    alt="Student Image"
+                                    class="student-image"
+                                >
+                            {% else %}
+                                No Image
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="7" class="empty-message">
+                            No students registered yet.
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+</body>
+</html>
